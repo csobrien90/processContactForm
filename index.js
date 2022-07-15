@@ -55,7 +55,7 @@ exports.handler = async (event, context, callback) => {
 			Message: {
 				Body: {
 					Text: {
-						Data: 'Name: ' + data.name + '\nEmail: ' + data.email + '\nMessage: ' + data.message,
+						Data: `Name: ${data.name}\nEmail: ${data.email}\nMessage: ${data.message}`,
 						Charset: 'UTF-8'
 					}
 				},
@@ -73,7 +73,7 @@ exports.handler = async (event, context, callback) => {
 			if (err) console.log(err, err.stack);
 			else console.log(data);	
 		});
-		
+
 		return JSON.stringify({
 			"status": 200,
 			"message": "Your message has been sent - thanks for reaching out!"
