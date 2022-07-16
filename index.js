@@ -69,15 +69,22 @@ exports.handler = async (event, context, callback) => {
 	
 		console.log("ses params: ", params);
 
-		ses.sendEmail(params, function(err, data) {
-			if (err) console.log(err, err.stack);
-			else console.log(data);	
-		});
+		const request = await ses.sendEmail(params).promise();
 
-		return JSON.stringify({
-			"status": 200,
-			"message": "Your message has been sent - thanks for reaching out!"
-		});
+		if (request) {
+			console.log("Email sent successfully: ", request);
+			return JSON.stringify({
+				"status": 200,
+				"message": "Your message has been sent - thanks for reaching out!"
+			});
+		} else {
+			console.log("Error sending email: ", request);
+			return JSON.stringify({
+				"status": 500,
+				"message": "There was a problem sending your message. Please refresh the page and try again."
+			});
+		}
+
 	}
 
 };
